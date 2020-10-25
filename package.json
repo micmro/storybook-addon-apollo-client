@@ -38,7 +38,17 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/storybook-addon-apollo-client.esm.js",
+  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./register": {
+      "import": "./dist/register.esm.js",
+      "require": "./dist/register.js"
+    }
+  },
   "name": "storybook-addon-apollo-client",
   "peerDependencies": {
     "@apollo/client": "3.x",
@@ -52,7 +62,8 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build --entry src/index.tsx --entry src/register.tsx && npm run post-build",
+    "post-build": "node scripts/post-tsdx.js",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
